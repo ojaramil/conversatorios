@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verdadero o Falso - Autismo con el Dr. Marcano</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #003366;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #003366;
+    }
+    .question-box {
+      background-color: white;
+      border: 2px solid #003366;
+      border-radius: 10px;
+      padding: 2rem;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background-color: #FF6600;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #cc5200;
+    }
+    #feedback {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    #score {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Juego: ¿Verdadero o Falso?</h1>
+<div class="question-box">
+  <div id="question" class="question">Cargando pregunta...</div>
+  <button onclick="answer(true)">Verdadero</button>
+  <button onclick="answer(false)">Falso</button>
+  <div id="feedback"></div>
+</div>
+<div id="score"></div>
+
+<script>
+const quiz = [
+  ["El autismo fue descrito por primera vez por Leo Kanner en 1943.", true],
+  ["El Dr. Andrés Marcano es psiquiatra infantil.", false],
+  ["El aumento del autismo puede explicarse exclusivamente por factores genéticos.", false],
+  ["La microbiota intestinal influye en el comportamiento de los niños con autismo.", true],
+  ["Eliminar gluten y caseína es útil para todos los casos de autismo.", false],
+  ["La intervención biomédica puede empezar incluso antes del embarazo.", true],
+  ["La cesárea puede influir negativamente en la microbiota del bebé.", true],
+  ["La leche de vaca tipo A1 puede ser inflamatoria en algunos niños.", true],
+  ["La intervención biomédica busca curar el autismo completamente.", false],
+  ["Cada caso de autismo debe abordarse de forma individualizada.", true],
+  ["Los metales pesados no tienen ninguna relación con el autismo.", false],
+  ["Una dieta rica en vegetales puede mejorar la diversidad de la microbiota.", true],
+  ["El enfoque multifactorial no considera el entorno del niño.", false],
+  ["El diagnóstico de autismo es un medio, no un fin.", true],
+  ["Se han encontrado más de 200 tóxicos en estudios del cordón umbilical.", true],
+  ["Todos los niños con autismo tienen los mismos síntomas y necesidades.", false],
+  ["El Dr. Marcano recomienda esperar antes de actuar si hay regresión del lenguaje.", false],
+  ["La epigenética estudia cómo el ambiente influye en la expresión genética.", true],
+  ["La disfunción mitocondrial puede estar presente en niños con autismo.", true],
+  ["El reflujo y el insomnio son síntomas comunes en autismo sin intervención biomédica.", true],
+  ["Los alimentos ultraprocesados benefician la microbiota intestinal.", false],
+  ["La intervención biomédica incluye apoyo a la nutrición y desintoxicación.", true],
+  ["El Autism Research Institute fue fundado por Leo Kanner.", false],
+  ["La vitamina B6 y el magnesio son suplementos usados en algunos tratamientos biomédicos.", true],
+  ["La evaluación médica debe considerar solo la conducta observable.", false],
+  ["El enfoque biomédico también se aplica en ansiedad, TDAH y depresión.", true],
+  ["La falta de evacuaciones regulares puede ser un signo de disfunción digestiva en autismo.", true],
+  ["El Dr. Marcano colabora con el Centro de Tratamiento del Autismo de Sovenia.", true],
+  ["El gluten no afecta nunca a los niños dentro del espectro autista.", false],
+  ["Las mejoras en conducta pueden facilitar los avances en lenguaje y socialización.", true],
+  ["El autismo ha disminuido desde los años 80.", false]
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+  document.getElementById('question').innerText = quiz[current][0];
+  document.getElementById('feedback').innerText = '';
+}
+
+function answer(userAnswer) {
+  const isCorrect = userAnswer === quiz[current][1];
+  const feedback = document.getElementById('feedback');
+  feedback.style.color = isCorrect ? 'green' : 'red';
+  feedback.innerText = isCorrect ? "✅ ¡Correcto!" : "❌ Incorrecto.";
+  if (isCorrect) score++;
+  setTimeout(() => {
+    current++;
+    if (current < quiz.length) {
+      loadQuestion();
+    } else {
+      document.querySelector('.question-box').style.display = 'none';
+      document.getElementById('score').innerText = `Juego terminado 🎉\nTu puntuación: ${score} de ${quiz.length}`;
+    }
+  }, 1200);
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
