@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verdadero o Falso - Diego Inclusivo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #003366;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #003366;
+    }
+    .question-box {
+      background-color: white;
+      border: 2px solid #003366;
+      border-radius: 10px;
+      padding: 2rem;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    button {
+      background-color: #FF6600;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #cc5200;
+    }
+    #feedback {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    #score {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Juego: ¿Verdadero o Falso?</h1>
+<div class="question-box">
+  <div id="question" class="question">Cargando pregunta...</div>
+  <button onclick="answer(true)">Verdadero</button>
+  <button onclick="answer(false)">Falso</button>
+  <div id="feedback"></div>
+</div>
+<div id="score"></div>
+
+<script>
+const quiz = [
+  ["Diego fue diagnosticado a los 6 años.", false],
+  ["Diego Inclusivo se creó para compartir experiencias útiles.", true],
+  ["Los videos no tienen preparación previa.", false],
+  ["Rafael usa trenes para motivar a Diego.", true],
+  ["Rafael no se preocupa por la inclusión laboral.", false],
+  ["Se hace simulación en casa antes de los retos sociales.", true],
+  ["La familia no participa en el proceso de Diego.", false],
+  ["Las escuelas privadas siempre incluyen sin costo adicional.", false],
+  ["Rafael es activista de una ley de inclusión en RD.", true],
+  ["Los apoyos visuales ayudan a reducir la ansiedad de Diego.", true],
+  ["La cuenta de Instagram se llama Diego Visibiliza.", false],
+  ["Cada actividad se fuerza aunque Diego no quiera.", false],
+  ["Se usan suplementos como vitamina D y magnesio.", true],
+  ["Rafael prepara a Diego para cuando él no esté.", true],
+  ["El diagnóstico fue en la infancia temprana.", false],
+  ["Rafael graba los videos solo por fama.", false],
+  ["La pubertad trajo nuevos retos emocionales a Diego.", true],
+  ["El proyecto impacta a familias en toda Latinoamérica.", true],
+  ["Diego es completamente independiente sin ayuda.", false],
+  ["Rafael destaca el rol crucial de los padres.", true]
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+  document.getElementById('question').innerText = quiz[current][0];
+  document.getElementById('feedback').innerText = '';
+}
+
+function answer(userAnswer) {
+  const isCorrect = userAnswer === quiz[current][1];
+  const feedback = document.getElementById('feedback');
+  feedback.style.color = isCorrect ? 'green' : 'red';
+  feedback.innerText = isCorrect ? "✅ ¡Correcto!" : "❌ Incorrecto.";
+  if (isCorrect) score++;
+  setTimeout(() => {
+    current++;
+    if (current < quiz.length) {
+      loadQuestion();
+    } else {
+      document.querySelector('.question-box').style.display = 'none';
+      document.getElementById('score').innerText = `Juego terminado 🎉\nTu puntuación: ${score} de ${quiz.length}`;
+    }
+  }, 1200);
+}
+
+loadQuestion();
+</script>
+
+</body>
